@@ -21,6 +21,12 @@
 		CE10DAF92C8A8ED700BCCB51 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = CE10DAF82C8A8ED700BCCB51 /* FirebaseAuth */; };
 		CE10DB032C8A8ED700BCCB51 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = CE10DB022C8A8ED700BCCB51 /* FirebaseFirestore */; };
 		CE10DB172C8A8ED800BCCB51 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = CE10DB162C8A8ED800BCCB51 /* FirebaseStorage */; };
+		CE10DB202C8AB2CD00BCCB51 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10DB1F2C8AB2CD00BCCB51 /* LoginView.swift */; };
+		CE10DB222C8ADF1600BCCB51 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE10DB212C8ADF1600BCCB51 /* RegistrationView.swift */; };
+		CE7009852C8BCE30003F00D4 /* BrandImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7009842C8BCE30003F00D4 /* BrandImage.swift */; };
+		CE7009872C8BCEF0003F00D4 /* InputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7009862C8BCEF0003F00D4 /* InputField.swift */; };
+		CE7009892C8BD2C6003F00D4 /* BasicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7009882C8BD2C6003F00D4 /* BasicButton.swift */; };
+		CE70098B2C8BDFF2003F00D4 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE70098A2C8BDFF2003F00D4 /* AuthViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +42,12 @@
 		CE10DAE72C899D1400BCCB51 /* Action.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		CE10DAE92C89A89A00BCCB51 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		CE10DAEB2C8A8B7400BCCB51 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CE10DB1F2C8AB2CD00BCCB51 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		CE10DB212C8ADF1600BCCB51 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		CE7009842C8BCE30003F00D4 /* BrandImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandImage.swift; sourceTree = "<group>"; };
+		CE7009862C8BCEF0003F00D4 /* InputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputField.swift; sourceTree = "<group>"; };
+		CE7009882C8BD2C6003F00D4 /* BasicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicButton.swift; sourceTree = "<group>"; };
+		CE70098A2C8BDFF2003F00D4 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				CE10DAE12C89827200BCCB51 /* ListViewModel.swift */,
+				CE70098A2C8BDFF2003F00D4 /* AuthViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -111,9 +124,10 @@
 		CE10DAE32C899A3900BCCB51 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CE7009832C8BCDE4003F00D4 /* Components */,
+				CE10DB1D2C8AB27900BCCB51 /* Auth */,
+				CE10DB1E2C8AB29000BCCB51 /* List */,
 				CE10DACD2C88329700BCCB51 /* ContentView.swift */,
-				CE10DAD92C88335500BCCB51 /* ListView.swift */,
-				CE10DADB2C88442800BCCB51 /* CardView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -132,6 +146,34 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CE10DB1D2C8AB27900BCCB51 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				CE10DB1F2C8AB2CD00BCCB51 /* LoginView.swift */,
+				CE10DB212C8ADF1600BCCB51 /* RegistrationView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		CE10DB1E2C8AB29000BCCB51 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				CE10DAD92C88335500BCCB51 /* ListView.swift */,
+				CE10DADB2C88442800BCCB51 /* CardView.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		CE7009832C8BCDE4003F00D4 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				CE7009842C8BCE30003F00D4 /* BrandImage.swift */,
+				CE7009862C8BCEF0003F00D4 /* InputField.swift */,
+				CE7009882C8BD2C6003F00D4 /* BasicButton.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,13 +256,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE10DACC2C88329700BCCB51 /* MatchingWithSwiftUIApp.swift in Sources */,
+				CE7009852C8BCE30003F00D4 /* BrandImage.swift in Sources */,
 				CE10DAE22C89827300BCCB51 /* ListViewModel.swift in Sources */,
 				CE10DAE52C899BDB00BCCB51 /* ContentView.swift in Sources */,
+				CE10DB202C8AB2CD00BCCB51 /* LoginView.swift in Sources */,
 				CE10DAEA2C89A89A00BCCB51 /* Extensions.swift in Sources */,
+				CE7009892C8BD2C6003F00D4 /* BasicButton.swift in Sources */,
 				CE10DADC2C88442800BCCB51 /* CardView.swift in Sources */,
 				CE10DAE82C899D1400BCCB51 /* Action.swift in Sources */,
 				CE10DADF2C897F0E00BCCB51 /* User.swift in Sources */,
+				CE70098B2C8BDFF2003F00D4 /* AuthViewModel.swift in Sources */,
 				CE10DADA2C88335600BCCB51 /* ListView.swift in Sources */,
+				CE10DB222C8ADF1600BCCB51 /* RegistrationView.swift in Sources */,
+				CE7009872C8BCEF0003F00D4 /* InputField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
