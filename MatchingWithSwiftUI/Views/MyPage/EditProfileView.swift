@@ -12,7 +12,6 @@ struct EditProfileView: View {
     
     @EnvironmentObject var authViewModel: AuthViewModel
     
-    @State var selectedImage: PhotosPickerItem? = nil
     @State var name = ""
     @State var age = 18
     @State var message = ""
@@ -63,32 +62,51 @@ struct EditProfileView_Previews: PreviewProvider {
     }
 }
 
-
 extension EditProfileView {
     private var editField: some View {
         VStack(spacing: 16) {
             //PhotoPicker
-            PhotosPicker(selection: $selectedImage) {
-                ZStack {
-                    Image("avatar")
-                        .resizable()
-                        .scaledToFit()
-                        .clipShape(RoundedRectangle(cornerRadius: 6))
-                        .frame(width: 150)
-                    
-                    Image(systemName: "photo.circle.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .foregroundStyle(Color.white.opacity(0.75))
-                        .frame(width: 60)
+            PhotosPicker(selection: $authViewModel.selectedImage) {
+                Group {
+                    if let uiImage = authViewModel.profileImage {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFit()
+                            .clipShape(RoundedRectangle(cornerRadius: 6))
+                            .frame(width: 150)
+                    } else if let urlString = authViewModel.currentUser?.photoUrl, let url = URL(string: urlString) {
+                        AsyncImage(url: url) { image in
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .clipShape(RoundedRectangle(cornerRadius: 6))
+                                .frame(width: 150)
+                        } placeholder: {
+                            ProgressView()
+                                .frame(width: 150, height: 150)
+                        }
+                    } else {
+                        ZStack {
+                            Image("avatar")
+                                .resizable()
+                                .scaledToFit()
+                                .clipShape(RoundedRectangle(cornerRadius: 6))
+                                .frame(width: 150)
+                            
+                            Image(systemName: "photo.circle.fill")
+                                .resizable()
+                                .scaledToFit()
+                                .foregroundStyle(Color.white.opacity(0.75))
+                                .frame(width: 60)
+                        }
+                    }
                 }
-                
             }
             
             //InputField
             InputField(text: $name, label: "お名前", placeholder: "")
             PickerField(selection: $age, title: "年齢")
-            InputField(text: $message, label: "メッセージ", placeholder: "入力してください", withDivider: false)
+            InputField(text: $message, label: "メッセージ", placeholder: "入力してください", withDivider: false, isVertical: true)
         }
         .padding(.horizontal)
         .padding(.vertical, 32)

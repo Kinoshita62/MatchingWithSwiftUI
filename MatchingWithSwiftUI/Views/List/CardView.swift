@@ -38,17 +38,33 @@ struct CardView: View {
     }
 }
 
-#Preview {
-    ListView()
+struct CardView_Previews: PreviewProvider {
+    static var previews: some View {
+        ListView()
+            .environmentObject(AuthViewModel())  // プレビューにオブジェクトを渡す
+    }
 }
 
 //MARK: -UI
 extension CardView {
     private var  imageLayer: some View {
-        Image(user.photoUrl ?? "avatar")
-            .resizable()
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 100)
+        Group {
+            if let urlString = user.photoUrl, let url = URL(string: urlString) {
+                AsyncImage(url: url) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: screenWidth - 16)
+                } placeholder: {
+                    ProgressView()
+                }
+            } else {
+                Image("avatar")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 100)
+            }
+        }
     }
     
     private var informationLayer: some View {
@@ -58,7 +74,8 @@ extension CardView {
                     .font(.largeTitle.bold())
                 Text("\(user.age)")
                     .font(.title2)
-                Circle()
+                Image(systemName: "checkmark.seal.fill")
+                    .foregroundStyle(.blue, .white)
                     .frame(width: 22, height: 22)
             }
             
@@ -116,11 +133,14 @@ extension CardView {
         adjustIndex(false)
     }
     
-    private func resetCard() {
+    private func resetCard(fromButton: Bool = false) {
         withAnimation(.smooth) {
             offset = .zero
         }
-        adjustIndex(true)
+        if fromButton {
+            adjustIndex(true)
+
+        }
     }
     
     private var gesture: some Gesture {
@@ -159,7 +179,7 @@ extension CardView {
             case .nope:
                 removeCard(isLiked: false)
             case .redo:
-                resetCard()
+                resetCard(fromButton: true)
             case .like:
                 removeCard(isLiked: true)
             }

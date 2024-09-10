@@ -11,6 +11,7 @@ struct MyPageView: View {
     
     @EnvironmentObject var authViewModel: AuthViewModel
     @State private var showEditProfileView = false
+    @State private var showDeleteAlert = false
     
     var body: some View {
         List {
@@ -41,10 +42,18 @@ struct MyPageView: View {
                 }
                 
                 Button {
-                    
+//
+                    showDeleteAlert = true
                 } label: {
                     MyPageRow(iconName: "xmark.circle.fill", label: "アカウント削除", tintColor: .red)
                 }
+                .alert("アカウント削除", isPresented: $showDeleteAlert) {
+                    Button("キャンセル") {}
+                    Button("削除") { Task { await authViewModel.deleteAccount() } }
+                } message: {
+                    Text("アカウントを削除しますか？")
+                }
+
             }
             
         }
@@ -54,18 +63,35 @@ struct MyPageView: View {
     }
 }
 
-#Preview {
-    MyPageView()
+struct MyPageView_Previews: PreviewProvider {
+    static var previews: some View {
+        MyPageView()
+            .environmentObject(AuthViewModel())  // プレビューにオブジェクトを渡す
+    }
 }
 
 extension MyPageView {
     private var userInfo: some View {
         HStack(spacing: 16) {
-            Image("avatar")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 48, height: 48)
-                .clipShape(Circle())
+            if let urlString = authViewModel.currentUser?.photoUrl, let url = URL(string: urlString) {
+                AsyncImage(url: url) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 48, height: 48)
+                        .clipShape(Circle())
+                } placeholder: {
+                    ProgressView()
+                        .frame(width: 48, height: 48 )
+                }
+            } else {
+                Image("avatar")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 48, height: 48)
+                    .clipShape(Circle())
+            }
+
             VStack(alignment: .leading, spacing: 4) {
                 Text(authViewModel.currentUser?.name ?? "")
                     .font(.subheadline)
