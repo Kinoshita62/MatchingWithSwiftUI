@@ -9,18 +9,51 @@ import SwiftUI
 
 struct ListView: View {
     
-    private let viewModel = ListViewModel()
+    @ObservedObject private var viewModel = ListViewModel()
     
     var body: some View {
-        VStack(spacing: 0) {
-            //card
-            cards
-            
-            //action
-            actions
+        NavigationStack {
+            Group {
+                if viewModel.users.count > 0 {
+                    VStack(spacing: 0) {
+                        //card
+                        cards
+                        
+                        //action
+                        actions
+                    }
+                    .background(.black, in: RoundedRectangle(cornerRadius: 15))
+                    .padding(.horizontal, 6)
+                } else {
+                    ProgressView()
+                        .padding()
+                        .tint(Color.white)
+                        .background(Color.gray)
+                        .clipShape(RoundedRectangle(cornerRadius: 6))
+                        .scaleEffect(1.5)
+                }
+                
+            }
+            .navigationTitle("Fire Match")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    BrandImage(size: .small)
+                }
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        MyPageView()
+                    } label: {
+                        Image("avatar")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 32, height: 32)
+                            .clipShape(Circle())
+                    }
+                }
+            }
         }
-        .background(.black, in: RoundedRectangle(cornerRadius: 15))
-        .padding(.horizontal, 6)
+        .tint(.primary)
     }
 }
 

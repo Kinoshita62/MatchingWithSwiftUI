@@ -10,7 +10,8 @@ import SwiftUI
 struct LoginView: View {
     
     //private var authViewModel = AuthViewModel()
-    let authViewModel: AuthViewModel
+    //let authViewModel: AuthViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
     @State private var email = ""
     @State private var password = ""
     
@@ -18,12 +19,12 @@ struct LoginView: View {
         NavigationStack {
             VStack {
                 //Image
-               BrandImage()
+                BrandImage(size: .large)
                 
                 //Form
                 VStack(spacing: 24) {
                     InputField(text: $email, label: "メールアドレス", placeholder: "入力してください")
-                    
+
                     InputField(text: $password, label: "パスワード", placeholder: "半角英数字6文字以上", isSecureField: true)
                     
                 }
@@ -39,7 +40,7 @@ struct LoginView: View {
                 Spacer()
                 //Navigation
                 NavigationLink {
-                    RegistrationView(authViewModel: authViewModel)
+                    RegistrationView()
                         .navigationBarBackButtonHidden()
                 } label: {
                     HStack {
@@ -57,5 +58,5 @@ struct LoginView: View {
 }
 
 #Preview {
-    LoginView(authViewModel: AuthViewModel())
+    LoginView()
 }

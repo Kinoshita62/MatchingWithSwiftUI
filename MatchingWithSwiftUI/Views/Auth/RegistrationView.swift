@@ -10,7 +10,7 @@ import SwiftUI
 struct RegistrationView: View {
     
     //private let authViewModel = AuthViewModel()
-    let authViewModel: AuthViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
     @State private var email = ""
     @State private var name = ""
     @State private var age = 18
@@ -22,7 +22,7 @@ struct RegistrationView: View {
     var body: some View {
         VStack {
             //Image
-            BrandImage()
+            BrandImage(size: .large)
             
             //Form
             VStack(spacing: 24) {
@@ -30,35 +30,22 @@ struct RegistrationView: View {
                 
                 InputField(text: $name, label: "お名前", placeholder: "入力してください")
                 
-                VStack(alignment: .leading, spacing: 12) {
-                    HStack {
-                        Text("年齢")
-                            .foregroundStyle(Color(.darkGray))
-                            .fontWeight(.semibold)
-                            .font(.footnote)
-                        Spacer()
-                        Picker(selection: $age) {
-                            ForEach(18..<100) { number in
-                                Text("\(number)")
-                                    .tag(number)
-                            }
-                        } label: {
-                            Text("年齢")
-                        }
-                        .tint(.black)
-                        
-                    }
-                    
-                    Divider()
-                }
+                PickerField(selection: $age, title: "年齢")
                 InputField(text: $password, label: "パスワード", placeholder: "入力してください", isSecureField: true)
+                    .textContentType(.none)
                 InputField(text: $confirmPassword, label: "パスワード(確認用)", placeholder: "もう一度、入力してください", isSecureField: true)
+                    .textContentType(.none)
             }
             
             //Button
             BasicButton(label: "登録", icon: "arrow.right") {
                 Task {
-                    await authViewModel.createAccount(email: email, password: password)
+                    await authViewModel.createAccount(
+                        email: email,
+                        password: password,
+                        name: name,
+                        age: age
+                    )
                 }
             }
             .padding(.top, 24)
@@ -83,5 +70,6 @@ struct RegistrationView: View {
 }
 
 #Preview {
-    RegistrationView(authViewModel: AuthViewModel())
+    RegistrationView()
 }
+

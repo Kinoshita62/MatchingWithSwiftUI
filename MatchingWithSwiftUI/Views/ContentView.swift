@@ -16,9 +16,10 @@ struct ContentView: View {
             if authViewModel.userSession != nil {
                 ListView()
             } else {
-                LoginView(authViewModel: authViewModel)
+                LoginView()
             }
         }
+        .environmentObject(authViewModel)
     }
 }
 
